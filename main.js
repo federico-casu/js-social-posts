@@ -180,15 +180,21 @@ const countersHtml = document.querySelectorAll('b.js-likes-counter');
 likeBtnsHtml.forEach(element => {
     element.addEventListener('click', function () {
         element.classList.toggle('like-button--liked');
-        element.classList.contains('like-button--liked') ? posts[Number(element.getAttribute('data-postid')) - 1].likes++ : posts[Number(element.getAttribute('data-postid')) - 1].likes--
-        countersHtml[Number(element.getAttribute('data-postid')) - 1].innerHTML = `${posts[Number(element.getAttribute('data-postid')) - 1].likes}`
+        updateCounter(element);
     })
 });
 
+// funzione che prende in input una stringa di una data in formato (yyyy-mm-dd) e la restituisce capovolta nel formato (dd-mm-yyyy) 
 function reverseDate(str) {
     const dateParts = str.split('-');
 
     const dateReversed = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
 
     return dateReversed;
+}
+
+// funzione che aggiorna il contatore dei likes
+function updateCounter(element) {
+    element.classList.contains('like-button--liked') ? posts[Number(element.getAttribute('data-postid')) - 1].likes++ : posts[Number(element.getAttribute('data-postid')) - 1].likes--
+    countersHtml[Number(element.getAttribute('data-postid')) - 1].innerHTML = `${posts[Number(element.getAttribute('data-postid')) - 1].likes}`
 }

@@ -27,8 +27,10 @@ Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
 
 BONUS:
 
+(OK)
 1 - Formattare le date in formato italiano (gg/mm/aaaa)
 
+(OK)
 2 - Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola > LF).
 
 (OK)
@@ -107,7 +109,7 @@ posts.forEach(element => {
                         </div>
                         <div class="post-meta__data">
                             <div class="post-meta__author">${element.author.name}</div>
-                            <div class="post-meta__time">${element.created}</div>
+                            <div class="post-meta__time">${reverseDate(element.created)}</div>
                         </div>                    
                     </div>
                 </div>
@@ -140,7 +142,7 @@ posts.forEach(element => {
                         </div>
                         <div class="post-meta__data">
                             <div class="post-meta__author">${element.author.name}</div>
-                            <div class="post-meta__time">${element.created}</div>
+                            <div class="post-meta__time">${reverseDate(element.created)}</div>
                         </div>                    
                     </div>
                 </div>
@@ -165,7 +167,7 @@ posts.forEach(element => {
         `;
     }
 
-    
+
 });
 
 
@@ -178,7 +180,15 @@ const countersHtml = document.querySelectorAll('b.js-likes-counter');
 likeBtnsHtml.forEach(element => {
     element.addEventListener('click', function () {
         element.classList.toggle('like-button--liked');
-        element.classList.contains('like-button--liked') ? posts[Number(element.getAttribute('data-postid'))-1].likes++ : posts[Number(element.getAttribute('data-postid'))-1].likes-- 
-        countersHtml[Number(element.getAttribute('data-postid'))-1].innerHTML = `${posts[Number(element.getAttribute('data-postid'))-1].likes}`
+        element.classList.contains('like-button--liked') ? posts[Number(element.getAttribute('data-postid')) - 1].likes++ : posts[Number(element.getAttribute('data-postid')) - 1].likes--
+        countersHtml[Number(element.getAttribute('data-postid')) - 1].innerHTML = `${posts[Number(element.getAttribute('data-postid')) - 1].likes}`
     })
 });
+
+function reverseDate(str) {
+    const dateParts = str.split('-');
+
+    const dateReversed = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+
+    return dateReversed;
+}
